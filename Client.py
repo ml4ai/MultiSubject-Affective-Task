@@ -59,14 +59,14 @@ class Client:
 
     def button(self, screen, position, text):
         font = pygame.font.SysFont("Arial", 50)
-        text_render = font.render(text, 1, (255, 0, 0))
+        text_render = font.render(text, 1, (0, 0, 0))
         x, y, w , h = text_render.get_rect()
         x, y = position
-        pygame.draw.line(screen, (150, 150, 150), (x, y), (x + w , y), 3)
-        pygame.draw.line(screen, (150, 150, 150), (x, y - 2), (x, y + h), 3)
+        pygame.draw.line(screen, (255, 255, 255), (x, y), (x + w , y), 3)
+        pygame.draw.line(screen, (255, 255, 255), (x, y - 2), (x, y + h), 3)
         pygame.draw.line(screen, (50, 50, 50), (x, y + h), (x + w , y + h), 3)
-        pygame.draw.line(screen, (50, 50, 50), (x + w , y+h), [x + w , y], 3)
-        pygame.draw.rect(screen, (100, 100, 100), (x, y, w , h))
+        pygame.draw.line(screen, (255, 255, 255), (x + w , y+h), [x + w , y], 3)
+        pygame.draw.rect(screen, (255, 255, 255), (x, y, w , h))
         return screen.blit(text_render, (x, y))
     
 
@@ -91,6 +91,7 @@ class Client:
         
         
         while self._running:
+            windowSurface.fill((0,0,0))
             # Exit the game if user hits close
             
             # Get update from server about the state of the game
@@ -134,24 +135,26 @@ class Client:
 
             rect = imgs_path.get_rect()
             arousal = pygame.transform.scale(Arousal_path, (850, 150))
-            windowSurface.blit(imgs_path, (cfg.WIDTH//2 -  rect.centerx+450, cfg.HEIGHT//2 - rect.centery-160)) # Image in the center of the screen
-            windowSurface.blit(Valence_path,(cfg.WIDTH//2 -  rect_Valence.centerx+450, cfg.HEIGHT//2 - rect_Valence .centery+450))
-            windowSurface.blit(arousal,(cfg.WIDTH//2 -  rect_Arousal.centerx+450, cfg.HEIGHT//2 - rect_Arousal.centery+750))
+            windowSurface.blit(imgs_path, (cfg.WIDTH//2 -  rect.centerx+550, cfg.HEIGHT//2 - rect.centery+120)) # Image in the center of the screen
+            windowSurface.blit(Valence_path,(cfg.WIDTH//2 -  rect_Valence.centerx-150, cfg.HEIGHT//2 - rect_Valence .centery+650))
+            windowSurface.blit(arousal,(cfg.WIDTH//2 -  rect_Arousal.centerx+1250, cfg.HEIGHT//2 - rect_Arousal.centery+650))
    
             font = pygame.font.Font('freesansbold.ttf', 20)
-            text_valence = font.render('Valence Score', True, green, blue)
+            text_valence = font.render('Valence Score', True, white)
             textRect_valence = text_valence.get_rect()
-            textRect_valence.center = (cfg.WIDTH//2 -  rect_Valence.centerx+350, cfg.HEIGHT//2 - rect_Valence.centery+550)
-            text_arousal = font.render('Arousal Score', True, green, blue)
+            textRect_valence.center = (cfg.WIDTH//2 -  rect_Valence.centerx+250, cfg.HEIGHT//2 - rect_Valence.centery+620)
+            text_arousal = font.render('Arousal Score', True, white)
             textRect_arousal = text_arousal.get_rect()
-            textRect_arousal.center = (cfg.WIDTH//2 -  rect_Arousal.centerx+350, cfg.HEIGHT//2 - rect_Arousal.centery+825)
+            textRect_arousal.center = (cfg.WIDTH//2 -  rect_Arousal.centerx+1650, cfg.HEIGHT//2 - rect_Arousal.centery+620)
             if data["session_index"] > 14:
-                text_title = font.render('MultiSubject Affective Task- Group Rating', True, green, blue)
-            else:
                 pygame.display.update()
-                text_title = font.render('MultiSubject Affective Task- Individual', True, green, blue)
+                text_title = font.render('MultiSubject Affective Task- Group Rating', True, white)
+            else:
+                # pygame.display.update()
+                
+                text_title = font.render('MultiSubject Affective Task- Individual', True, white)
             textRect_title = text_title.get_rect()
-            textRect_title.center = (cfg.WIDTH//2+500, cfg.HEIGHT//2+300)
+            textRect_title.center = (cfg.WIDTH//2+550, cfg.HEIGHT//2+530)
             windowSurface.blit(text_title, textRect_title)
             windowSurface.blit(text_valence, textRect_valence)
             windowSurface.blit(text_arousal, textRect_arousal)
@@ -159,33 +162,34 @@ class Client:
             
             if int(data["timer"]) < 16:
                 if int(data["timer"]) < 10:
-                    text_timer_text = font.render("Timer:", True, green, blue)
+                    text_timer_text = font.render("Timer:", True, white)
                     text_timer = font.render("0" + str(data["timer"]), True, green, blue)
                 else:
-                    text_timer_text = font.render("Timer:", True, green, blue)
+                    text_timer_text = font.render("Timer:", True, white)
                     text_timer = font.render(str(data["timer"]), True, green, blue)
+                    
                 textRect_timer = text_timer.get_rect()
                 textRect_timer_text = text_timer_text.get_rect()
-                textRect_timer_text = (cfg.WIDTH//2 -  rect_Valence.centerx+220, cfg.HEIGHT//2 - rect_Arousal.centery+689)
-                textRect_timer.center = (cfg.WIDTH//2 -  rect_Valence.centerx+300, cfg.HEIGHT//2 - rect_Arousal.centery+700) #position of the timer
+                textRect_timer_text = (cfg.WIDTH//2 -  rect_Valence.centerx+920, cfg.HEIGHT//2 - rect_Arousal.centery+689)
+                textRect_timer.center = (cfg.WIDTH//2 -  rect_Valence.centerx+1000, cfg.HEIGHT//2 - rect_Arousal.centery+700) #position of the timer
                 time = int(data["timer"])
                 windowSurface.blit(text_timer, textRect_timer)
                 windowSurface.blit(text_timer_text, textRect_timer_text)
                 text_title.fill(pygame.Color("black"))
             
-            v1 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+500, cfg.HEIGHT//2 - rect_Valence.centery+650), "+2")
-            v2 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+675, cfg.HEIGHT//2 - rect_Valence.centery+650), "+1")
-            v3 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+850, cfg.HEIGHT//2 - rect_Valence.centery+650), "0")
-            v4 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+1025, cfg.HEIGHT//2 - rect_Valence.centery+650), "-1")
-            v5 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+1190, cfg.HEIGHT//2 - rect_Valence.centery+650), "-2")
+            v1 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx-100, cfg.HEIGHT//2 - rect_Valence.centery+850), "+2")
+            v2 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+75, cfg.HEIGHT//2 - rect_Valence.centery+850), "+1")
+            v3 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+260, cfg.HEIGHT//2 - rect_Valence.centery+850), "0")
+            v4 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+420, cfg.HEIGHT//2 - rect_Valence.centery+850), "-1")
+            v5 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+600, cfg.HEIGHT//2 - rect_Valence.centery+850), "-2")
             
-            a1 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+500, cfg.HEIGHT//2 - rect_Arousal.centery+925), "+2")
-            a2 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+675, cfg.HEIGHT//2 - rect_Arousal.centery+925), "+1")
-            a3 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+850, cfg.HEIGHT//2 - rect_Arousal.centery+925), "0")
-            a4 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+1025, cfg.HEIGHT//2 - rect_Arousal.centery+925), "-1")
-            a5 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+1190, cfg.HEIGHT//2 - rect_Arousal.centery+925), "-2")
+            a1 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+1320, cfg.HEIGHT//2 - rect_Arousal.centery+850), "+2")
+            a2 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+1475, cfg.HEIGHT//2 - rect_Arousal.centery+850), "+1")
+            a3 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+1680, cfg.HEIGHT//2 - rect_Arousal.centery+850), "0")
+            a4 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+1825, cfg.HEIGHT//2 - rect_Arousal.centery+850), "-1")
+            a5 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+2000, cfg.HEIGHT//2 - rect_Arousal.centery+850), "-2")
             
-            submit = self.button(windowSurface, (cfg.WIDTH//2 -  rect_Valence.centerx+1400, cfg.HEIGHT//2 - rect_Valence.centery+670), "Submit")
+            submit = self.button(windowSurface, (cfg.WIDTH//2 -  rect_Valence.centerx+900, cfg.HEIGHT//2 - rect_Valence.centery+900), "Submit")
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -220,12 +224,25 @@ class Client:
                         self.arousal_score = -2
                     if submit.collidepoint(pygame.mouse.get_pos()):
                         self.submit_click = True
+                        click = True
                         break
             if not self._running:
                 break
             # Update client screen
             pygame.display.flip()
-            
+                    
+        if (click == True):
+            Submit_text = font.render("Submitted!", True, white)
+            textRect_Submit_text = Submit_text.get_rect()
+            textRect_Submit_text.center = (cfg.WIDTH//2 -  rect_Valence.centerx+920, cfg.HEIGHT//2 - rect_Arousal.centery+980)
+            windowSurface.blit(Submit_text, textRect_Submit_text)
+        else:
+            Submit_text = font.render("Not Submitted!", True, white)
+            textRect_Submit_text = Submit_text.get_rect()
+            textRect_Submit_text.center = (cfg.WIDTH//2 -  rect_Valence.centerx+920, cfg.HEIGHT//2 - rect_Arousal.centery+980)
+            windowSurface.blit(Submit_text, textRect_Submit_text)                           
+                        
+
             
         # Close receiving connection
         self._from_server.close()

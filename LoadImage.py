@@ -1,7 +1,7 @@
 import os
 from os import listdir
 from PIL import Image as PImage
-
+import glob
  #Add path to the valence and arousal images which will be used as Buttons
 
 cwd = os.getcwd()  
@@ -21,7 +21,7 @@ def loadImages(path):
     imagesList = listdir(path)
     loadedImages_path = []
     loadedImages = []
-    for image in imagesList:
+    for image in sorted(imagesList):
         img = PImage.open(path + image) 
         img_path = path + image
         loadedImages_path.append(img_path)
@@ -31,7 +31,8 @@ def loadImages(path):
 imgs_path_list, img_list = loadImages(Fil_img)
 
 butt_path, butt = loadImages(Fil_butt)
-            
+
+# print(imgs_path_list)
     
     
 
