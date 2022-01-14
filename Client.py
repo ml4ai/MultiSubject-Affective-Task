@@ -131,9 +131,11 @@ class Client:
                 print("Server closed")
                 break
             #print(int(data["session_index"]))
-            # Same till here at the least
-            #print("RECEIVE")
-            if (int(data["session_index"])%2) != 0:
+
+            '''
+            Display rating icons only when image disappears from the screen 
+            '''
+            if (int(data["session_index"])%2) != 0: 
                 Arousal= pygame.image.load(loadimg.butt_path[0])
                 Valence = pygame.image.load(loadimg.butt_path[1])
                 Arousal_path = pygame.image.load(loadimg.butt_path[0])
@@ -142,30 +144,33 @@ class Client:
                 rect_Valence = Valence_path.get_rect()
                 
                 arousal = pygame.transform.scale(Arousal_path, (850, 150))
-                windowSurface.blit(Valence_path,(cfg.WIDTH//2 -  rect_Valence.centerx+450, cfg.HEIGHT//2 - rect_Valence .centery+550))
-                windowSurface.blit(arousal,(cfg.WIDTH//2 -  rect_Arousal.centerx+450, cfg.HEIGHT//2 - rect_Arousal.centery+850))
+                windowSurface.blit(Valence_path,(cfg.WIDTH//2 -  rect_Valence.centerx+550, cfg.HEIGHT//2 - rect_Valence .centery+550))
+                windowSurface.blit(arousal,(cfg.WIDTH//2 -  rect_Arousal.centerx+550, cfg.HEIGHT//2 - rect_Arousal.centery+850))
                 font = pygame.font.Font('freesansbold.ttf', 20)
                 text_valence = font.render('Valence Score', True, (255,255,255), (0,0,0))
                 textRect_valence = text_valence.get_rect()
-                textRect_valence.center = (cfg.WIDTH//2 -  rect_Valence.centerx+350, cfg.HEIGHT//2 - rect_Valence.centery+650)
+                
+                textRect_valence.center = (cfg.WIDTH//2 -  rect_Valence.centerx+450, cfg.HEIGHT//2 - rect_Valence.centery+650)
                 text_arousal = font.render('Arousal Score', True, (255,255,255), (0,0,0))
                 textRect_arousal = text_arousal.get_rect()
-                textRect_arousal.center = (cfg.WIDTH//2 -  rect_Arousal.centerx+350, cfg.HEIGHT//2 - rect_Arousal.centery+925)
+
+                textRect_arousal.center = (cfg.WIDTH//2 -  rect_Arousal.centerx+450, cfg.HEIGHT//2 - rect_Arousal.centery+925)
                 windowSurface.blit(text_valence, textRect_valence)
                 windowSurface.blit(text_arousal, textRect_arousal)
-                windowSurface.blit(Valence_path,(cfg.WIDTH//2 -  rect_Valence.centerx+450, cfg.HEIGHT//2 - rect_Valence .centery+550))
-                windowSurface.blit(arousal,(cfg.WIDTH//2 -  rect_Arousal.centerx+450, cfg.HEIGHT//2 - rect_Arousal.centery+850))
-                v1 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+500, cfg.HEIGHT//2 - rect_Valence.centery+750), "+2")
-                v2 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+675, cfg.HEIGHT//2 - rect_Valence.centery+750), "+1")
-                v3 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+850, cfg.HEIGHT//2 - rect_Valence.centery+750), "0")
-                v4 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+1025, cfg.HEIGHT//2 - rect_Valence.centery+750), "-1")
-                v5 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+1190, cfg.HEIGHT//2 - rect_Valence.centery+750), "-2")
+                # windowSurface.blit(Valence_path,(cfg.WIDTH//2 -  rect_Valence.centerx+450, cfg.HEIGHT//2 - rect_Valence .centery+550))
+                # windowSurface.blit(arousal,(cfg.WIDTH//2 -  rect_Arousal.centerx+450, cfg.HEIGHT//2 - rect_Arousal.centery+850))
                 
-                a1 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+500, cfg.HEIGHT//2 - rect_Arousal.centery+1025), "+2")
-                a2 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+675, cfg.HEIGHT//2 - rect_Arousal.centery+1025), "+1")
-                a3 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+850, cfg.HEIGHT//2 - rect_Arousal.centery+1025), "0")
-                a4 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+1025, cfg.HEIGHT//2 - rect_Arousal.centery+1025), "-1")
-                a5 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+1190, cfg.HEIGHT//2 - rect_Arousal.centery+1025), "-2")
+                v1 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+600, cfg.HEIGHT//2 - rect_Valence.centery+750), "+2")
+                v2 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+775, cfg.HEIGHT//2 - rect_Valence.centery+750), "+1")
+                v3 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+950, cfg.HEIGHT//2 - rect_Valence.centery+750), "0")
+                v4 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+1125, cfg.HEIGHT//2 - rect_Valence.centery+750), "-1")
+                v5 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+1290, cfg.HEIGHT//2 - rect_Valence.centery+750), "-2")
+                
+                a1 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+600, cfg.HEIGHT//2 - rect_Arousal.centery+1025), "+2")
+                a2 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+775, cfg.HEIGHT//2 - rect_Arousal.centery+1025), "+1")
+                a3 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+950, cfg.HEIGHT//2 - rect_Arousal.centery+1025), "0")
+                a4 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+1125, cfg.HEIGHT//2 - rect_Arousal.centery+1025), "-1")
+                a5 = self.button(windowSurface , (cfg.WIDTH//2 -  rect_Arousal.centerx+1290, cfg.HEIGHT//2 - rect_Arousal.centery+1025), "-2")
 
                 submit = self.button(windowSurface, (cfg.WIDTH//2 -  rect_Valence.centerx+1500, cfg.HEIGHT//2 - rect_Valence.centery+750), "Submit")
                
@@ -178,37 +183,44 @@ class Client:
             img = pygame.image.load(loadimg.imgs_path_list[int(data["session_index"])])
             imgs_path = pygame.image.load(loadimg.imgs_path_list[data["session_index"]]) 
             rect = imgs_path.get_rect()        
-            windowSurface.blit(imgs_path, (cfg.WIDTH//2 -  rect.centerx+450, cfg.HEIGHT//2 - rect.centery-20)) # Image in the center of the screen
+            windowSurface.blit(imgs_path, (cfg.WIDTH//2 -  rect.centerx+550, cfg.HEIGHT//2 - rect.centery-10)) # Image in the center of the screen
             
-   
-            font = pygame.font.Font('freesansbold.ttf', 20)
- 
-            
-            if data["session_index"] > 28:
-                text_title = font.render('MultiSubject Affective Task- Group Rating', True, (255,255,255), (0,0,0))
-            else:
-                # pygame.display.update()
-                text_title = font.render('MultiSubject Affective Task- Individual', True, (255,255,255), (0,0,0))
+            font_tile = pygame.font.Font('freesansbold.ttf', 20)
+            text_title = font_tile.render('MultiSubject Affective Task', True, (255,255,255), (0,0,0))
             textRect_title = text_title.get_rect()
-            textRect_title.center = (cfg.WIDTH//2+450, cfg.HEIGHT//2+400)
+            textRect_title.center = (cfg.WIDTH//2+550, cfg.HEIGHT//2+400)
             windowSurface.blit(text_title, textRect_title)
 
-            
-            
+            font_task = pygame.font.Font('freesansbold.ttf', 50)
+            if data["session_index"] > 28:
+                text_title = font_task.render('Group Task', True, (255,255,255), (0,0,0))
+            else:
+                # pygame.display.update()
+                text_title = font_task.render('Individual Task', True, (255,255,255), (0,0,0))
+            textRect_title = text_title.get_rect()
+            textRect_title.center = (cfg.WIDTH//2+1400, cfg.HEIGHT//2+20)
+            windowSurface.blit(text_title, textRect_title)
+
+            font_timer = pygame.font.Font('freesansbold.ttf', 50) 
+
+            #Displaying timer on client's window 
             if int(data["timer"]) < 26:
-                if int(data["timer"]) == int(00):
-                   btn_clk_subm = False 
+                if int(data["timer"]) == int(00): #everytime timer becomes 00 it resets all button
+                   btn_clk_subm = False
+                   btn_clk_v1 = btn_clk_v2 = btn_clk_v3 = btn_clk_v4 = btn_clk_v5 = False 
+                   btn_clk_a1 = btn_clk_a2 = btn_clk_a3 = btn_clk_a4 = btn_clk_a5 = False 
                    windowSurface.fill((0,0,0)) 
+
                 if int(data["timer"]) < 10:
-                    text_timer_text = font.render("Timer:", True, (255,255,255), (0,0,0))
-                    text_timer = font.render("0" + str(data["timer"]), True, (255,255,255), (0,0,0))
+                    text_timer_text = font_timer.render("Timer:", True, (255,255,255), (0,0,0))
+                    text_timer = font_timer.render("0" + str(data["timer"]), True, (255,255,255), (0,0,0))
                 else:
-                    text_timer_text = font.render("Timer:", True, (255,255,255), (0,0,0))
-                    text_timer = font.render(str(data["timer"]), True, (255,255,255), (0,0,0))
+                    text_timer_text = font_timer.render("Timer:", True, (255,255,255), (0,0,0))
+                    text_timer = font_timer.render(str(data["timer"]), True, (255,255,255), (0,0,0))
                 textRect_timer = text_timer.get_rect()
                 textRect_timer_text = text_timer_text.get_rect()
-                textRect_timer_text = (cfg.WIDTH//2 -  rect.centerx+280, cfg.HEIGHT//2 - rect.centery+770)
-                textRect_timer.center = (cfg.WIDTH//2 -  rect.centerx+360, cfg.HEIGHT//2 - rect.centery+781) #position of the timer
+                textRect_timer_text = (cfg.WIDTH//2 -  rect.centerx+180, cfg.HEIGHT//2 - rect.centery+370)
+                textRect_timer.center = (cfg.WIDTH//2 -  rect.centerx+375, cfg.HEIGHT//2 - rect.centery+398) #position of the timer
                 time = int(data["timer"])
                 windowSurface.blit(text_timer, textRect_timer)
                 windowSurface.blit(text_timer_text, textRect_timer_text)
@@ -223,7 +235,8 @@ class Client:
                             send(writable[0], "CLOSE")
                         else:
                             raise RuntimeError("Lost connection with server")
-                        
+
+                #Multiple if statements for button switching logic (if user switches from one button to another)      
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if v1.collidepoint(pygame.mouse.get_pos()):
                         self.valence_score = +2
@@ -275,26 +288,26 @@ class Client:
                         break
 
             if btn_clk_v1 == True:
-                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+500, cfg.HEIGHT//2 - rect_Valence.centery+750), "+2")
+                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+600, cfg.HEIGHT//2 - rect_Valence.centery+750), "+2")
             elif btn_clk_v2 == True:
-                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+675, cfg.HEIGHT//2 - rect_Valence.centery+750), "+1")
+                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+775, cfg.HEIGHT//2 - rect_Valence.centery+750), "+1")
             elif btn_clk_v3 == True:
-                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+850, cfg.HEIGHT//2 - rect_Valence.centery+750), "0")
+                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+950, cfg.HEIGHT//2 - rect_Valence.centery+750), "0")
             elif btn_clk_v4 == True:
-                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+1025, cfg.HEIGHT//2 - rect_Valence.centery+750), "-1")            
+                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+1125, cfg.HEIGHT//2 - rect_Valence.centery+750), "-1")            
             elif btn_clk_v5 == True:
-                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+1190, cfg.HEIGHT//2 - rect_Valence.centery+750), "-2")              
+                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+1290, cfg.HEIGHT//2 - rect_Valence.centery+750), "-2")              
             
             if btn_clk_a1 == True:
-                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+500, cfg.HEIGHT//2 - rect_Valence.centery+1025), "+2")
+                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+600, cfg.HEIGHT//2 - rect_Valence.centery+1025), "+2")
             elif btn_clk_a2 == True:
-                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+675, cfg.HEIGHT//2 - rect_Valence.centery+1025), "+1")
+                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+775, cfg.HEIGHT//2 - rect_Valence.centery+1025), "+1")
             elif btn_clk_a3 == True:
-                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+850, cfg.HEIGHT//2 - rect_Valence.centery+1025), "0")
+                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+950, cfg.HEIGHT//2 - rect_Valence.centery+1025), "0")
             elif btn_clk_a4 == True:
-                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+1025, cfg.HEIGHT//2 - rect_Valence.centery+1025), "-1")            
+                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+1125, cfg.HEIGHT//2 - rect_Valence.centery+1025), "-1")            
             elif btn_clk_a5 == True:
-                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+1190, cfg.HEIGHT//2 - rect_Valence.centery+1025), "-2")      
+                self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+1290, cfg.HEIGHT//2 - rect_Valence.centery+1025), "-2")      
 
             if btn_clk_subm == True:
                 self.button_animation(windowSurface , (cfg.WIDTH//2 -  rect_Valence.centerx+1500, cfg.HEIGHT//2 - rect_Valence.centery+750), "Submitted")     
